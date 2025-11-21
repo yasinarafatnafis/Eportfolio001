@@ -4,21 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yasin Arafat Nafis - Software Developer Portfolio</title>
+    <!-- Load Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Typed.js for the typing effect -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js"></script>
+    <!-- Load Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* Import Inter font and set as default */
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
         * { font-family: 'Inter', sans-serif; }
+
+        /* Hero Section Styling */
         .hero-bg {
             background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
             position: relative;
             overflow: hidden;
         }
+        /* Background image overlay effect */
         .hero-bg::before {
             content: '';
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
+            /* Note: 'resources/hero-bg.jpg' might also need to be checked if it's external or relative */
             background-image: url('resources/hero-bg.jpg');
             background-size: cover;
             background-position: center;
@@ -26,29 +34,37 @@
             z-index: 0;
         }
         .hero-content { position: relative; z-index: 1; }
+
+        /* Portrait Styling */
         .portrait-container { position: relative; display: inline-block; }
         .portrait-image {
             width: 224px;
             height: 224px;
             object-fit: cover;
-            border-radius: 1rem;
+            border-radius: 1rem; /* rounded-xl */
             border: 4px solid #ffffff;
             box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
             transition: transform 0.3s ease-in-out;
             display: block;
-            background-color: #f3f4f6;
+            background-color: #f3f4f6; /* Placeholder color before image loads */
         }
         @media (prefers-reduced-motion: no-preference) {
             .portrait-image:hover { transform: translateY(-8px); }
         }
+
+        /* Typed Text and Cursor Styling */
         .typed-cursor { color: #3b82f6; animation: blink 1s infinite; }
         @keyframes blink { 0%,50%{opacity:1}51%,100%{opacity:0} }
+
+        /* Gradient Heading Text */
         .gradient-text {
             background: linear-gradient(135deg, #1e293b 0%, #475569 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
+
+        /* Navigation Link Hover Effect */
         .nav-link { position: relative; transition: color 0.3s ease; }
         .nav-link::after {
             content: '';
@@ -61,11 +77,15 @@
             transition: width 0.3s ease;
         }
         .nav-link:hover::after { width: 100%; }
+
+        /* Primary Button Styling */
         .btn-primary {
             background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
             transition: all 0.3s ease;
         }
         .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(59,130,246,0.3); }
+
+        /* Secondary Button Styling */
         .btn-secondary {
             border: 2px solid #3b82f6;
             color: #3b82f6;
@@ -150,16 +170,22 @@
                 <!-- Right Content - Portrait -->
                 <div class="flex justify-center lg:justify-end">
                     <div class="portrait-container" aria-hidden="false">
-                        <!-- IMPORTANT: put the 'resources' folder in the same directory as this HTML file -->
+                        <!-- 
+                            FIX: Added an 'onerror' handler. 
+                            If 'portrait.png' fails to load (which is causing the issue), 
+                            it will automatically switch to a reliable placeholder image URL 
+                            to prevent the broken image icon from showing.
+                        -->
                         <img
-    src="portrait.png"
-    alt="Portrait of Yasin Arafat Nafis"
-    class="portrait-image"
-    width="224"
-    height="224"
-    loading="lazy"
-    id="portraitImg"
->
+                            src="portrait.png"
+                            alt="Portrait of Yasin Arafat Nafis"
+                            class="portrait-image"
+                            width="224"
+                            height="224"
+                            loading="lazy"
+                            id="portraitImg"
+                            onerror="this.onerror=null;this.src='https://placehold.co/224x224/3b82f6/ffffff?text=Yasin+Arafat';"
+                        >
 
                     </div>
                 </div>
@@ -285,14 +311,9 @@
                 loop: true
             });
         } else {
+            // Fallback for when Typed.js might fail to load
             document.getElementById('typed-fallback').style.display = 'inline';
         }
-
-        // Extra debug: log if portrait fails to load (also handled by img onerror)
-        const portrait = document.getElementById('portraitImg');
-        portrait.addEventListener('error', () => {
-            console.warn('Portrait image error event fired for:', portrait.src);
-        });
     </script>
 </body>
 </html>
